@@ -13,6 +13,15 @@ public class ActiviteSurDemande extends Activite {
 
     @Override
     public double calculDuPrix(JoursOuverture jour, int... nbPersonne) {
-        return -1;
+        if(!joursOuverture.contains(jour)){
+            System.out.println("Cette activité n'est pas disponible pour le jour demandé. L'activité est ouverte les jours suivant : " + joursOuverture);
+            return -1;
+        }
+
+        if(nbPersonne[0] > 4){
+            System.out.println("Cette activité n'est pas disponible pour plus de 4 personnes");
+            return -1;
+        }
+        return nbPersonne[0] * prixParticipant;
     }
 }

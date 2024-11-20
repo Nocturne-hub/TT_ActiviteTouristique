@@ -16,6 +16,24 @@ public class ActiviteVenteLibre extends Activite {
 
     @Override
     public double calculDuPrix(JoursOuverture jour, int... nbPersonne) {
-        return -1;
+        if(!joursOuverture.contains(jour)){
+            System.out.println("Cette activité n'est pas disponible pour le jour demandé. L'activité est ouverte les jours suivant : " + joursOuverture);
+            return -1;
+        }
+
+        int nbAdulte = nbPersonne[0];
+        int nbEnfant = nbPersonne[1];
+
+        double prixTotal = nbAdulte * prixAdulte;
+
+        for(int i = 0; i < nbEnfant; i++){
+            if(i < 2){
+                prixTotal += prixEnfant;
+            } else {
+                prixTotal += prixEnfant / 2;
+            }
+        }
+
+        return  prixTotal;
     }
 }
