@@ -1,5 +1,10 @@
 package org.activite_touristique;
 
+import org.activite_touristique.impl.Activite;
+import org.activite_touristique.impl.ActiviteSurDemande;
+import org.activite_touristique.impl.ActiviteVenteLibre;
+import org.activite_touristique.src.JoursOuverture;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,18 +16,18 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         boolean reservationEnCours = true;
-        while(reservationEnCours) {
+        while (reservationEnCours) {
             // Création des activités
             ArrayList<JoursOuverture> joursOuvertureLibre = new ArrayList<>(Arrays.asList(JoursOuverture.LUNDI, JoursOuverture.MARDI, JoursOuverture.JEUDI, JoursOuverture.VENDREDI));
-            ActiviteVenteLibre activiteLibre = new ActiviteVenteLibre("A001", "Activité Libre", joursOuvertureLibre, 20, 10);
+            ActiviteVenteLibre escaladeEnFamille = new ActiviteVenteLibre("A001", "Activité Libre", joursOuvertureLibre, 20, 10);
 
             ArrayList<JoursOuverture> joursOuvertureSurDemande = new ArrayList<>(Arrays.asList(JoursOuverture.VENDREDI, JoursOuverture.SAMEDI, JoursOuverture.DIMANCHE));
-            ActiviteSurDemande activiteSurDemande = new ActiviteSurDemande("A002", "Activité Sur Demande", joursOuvertureSurDemande, 10);
+            ActiviteSurDemande sautEnParachute = new ActiviteSurDemande("A002", "Activité Sur Demande", joursOuvertureSurDemande, 10);
 
             // Liste des activités
             List<Activite> activites = new ArrayList<>();
-            activites.add(activiteLibre);
-            activites.add(activiteSurDemande);
+            activites.add(escaladeEnFamille);
+            activites.add(sautEnParachute);
 
             // Sélection de l'activité
             System.out.println("Choisissez une activité : ");
@@ -36,7 +41,7 @@ public class Main {
             String jour = scanner.nextLine().toUpperCase();
 
             // Demande du jour et des participants
-            while (!estValide(jour)) {
+            while (!JoursOuverture.estValide(jour)) {
                 System.out.print("Le jour de la semaine n'existe pas, veuillez choisir entre les choix suivants : Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi, Dimanche ");
                 System.out.print("Entrez le jour de la semaine : ");
                 jour = scanner.nextLine().toUpperCase();
@@ -54,7 +59,7 @@ public class Main {
                     scanner.nextLine(); // Consommer la nouvelle ligne
 
                     // Calcul et affichage du prix
-                    prix = activiteLibre.calculDuPrix(JoursOuverture.valueOf(jour), adultes, enfants);
+                    prix = escaladeEnFamille.calculDuPrix(JoursOuverture.valueOf(jour), adultes, enfants);
                     if (prix != -1) {
                         System.out.println("Le prix total pour " + adultes + " adultes et " + enfants + " enfants le " + jour + " est de : " + prix + "€");
                     }
@@ -65,7 +70,7 @@ public class Main {
                     scanner.nextLine(); // Consommer la nouvelle ligne
 
                     // Calcul et affichage du prix
-                    prix = activiteSurDemande.calculDuPrix(JoursOuverture.valueOf(jour), participants);
+                    prix = sautEnParachute.calculDuPrix(JoursOuverture.valueOf(jour), participants);
                     if (prix != -1) {
                         System.out.println("Le prix total pour " + participants + " particpants le " + jour + " est de : " + prix + "€");
                     }
@@ -83,14 +88,5 @@ public class Main {
             }
         }
         scanner.close();
-    }
-
-    public static boolean estValide(String jour) {
-        for (JoursOuverture j : JoursOuverture.values()) {
-            if (j.name().equals(jour)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
