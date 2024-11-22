@@ -30,19 +30,28 @@ public class Main {
             activites.add(sautEnParachute);
 
             // Sélection de l'activité
-            System.out.println("Choisissez une activité : ");
-            System.out.println("1 - Activité Libre");
-            System.out.println("2 - Activité Sur Demande");
-            int choix = scanner.nextInt();
-            scanner.nextLine(); // Consommer la nouvelle ligne
+            System.out.println("Choisissez une activité en entrant son code: ");
+            ArrayList<String> codes = new ArrayList<>();
+            for(Activite a : activites){
+                System.out.println(a.getCodeActivite() + " - " + a.getTitre());
+                codes.add(a.getCodeActivite());
+            }
 
+            String choix = scanner.nextLine();
+
+            // Vérification que l'activité existe bien
+            while(!codes.contains(choix)) {
+                System.out.println("Veuillez entrer un code valide au format AXXX, exemple A001");
+                choix = scanner.nextLine();
+            }
+
+            // Demande du jour
             System.out.print("Entrez le jour de la semaine : ");
 
             String jour = scanner.nextLine().toUpperCase();
 
-            // Demande du jour et des participants
             while (!JoursOuverture.estValide(jour)) {
-                System.out.print("Le jour de la semaine n'existe pas, veuillez choisir entre les choix suivants : Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi, Dimanche ");
+                System.out.println("Le jour de la semaine n'existe pas, veuillez choisir entre les choix suivants : Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi, Dimanche.");
                 System.out.print("Entrez le jour de la semaine : ");
                 jour = scanner.nextLine().toUpperCase();
             }
@@ -50,7 +59,7 @@ public class Main {
             double prix;
 
             switch (choix) {
-                case 1:
+                case "A001":
                     System.out.print("Nombre d'adultes : ");
                     int adultes = scanner.nextInt();
 
@@ -64,7 +73,7 @@ public class Main {
                         System.out.println("Le prix total pour " + adultes + " adultes et " + enfants + " enfants le " + jour + " est de : " + prix + "€");
                     }
                     break;
-                case 2:
+                case "A002":
                     System.out.print("Nombre de participants : ");
                     int participants = scanner.nextInt();
                     scanner.nextLine(); // Consommer la nouvelle ligne
@@ -74,6 +83,9 @@ public class Main {
                     if (prix != -1) {
                         System.out.println("Le prix total pour " + participants + " particpants le " + jour + " est de : " + prix + "€");
                     }
+                    break;
+                default:
+                    System.out.println("Rien à faire, le numéro de l'activité n'existe pas");
                     break;
             }
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ActiviteSurDemande extends Activite {
 
     /** Prix par participant */
-    private double prixParticipant;
+    private final double prixParticipant;
 
     public ActiviteSurDemande(String codeActivite, String titre, ArrayList<JoursOuverture> joursOuverture, double prixParticipant) {
         super(codeActivite, titre, joursOuverture);

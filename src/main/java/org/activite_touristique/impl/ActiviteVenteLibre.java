@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class ActiviteVenteLibre extends Activite {
 
     /** Prix par adulte */
-    private double prixAdulte;
+    private final double prixAdulte;
 
     /** Prix par enfant */
-    private double prixEnfant;
+    private final double prixEnfant;
 
     public ActiviteVenteLibre(String codeActivite, String titre, ArrayList<JoursOuverture> joursOuverture, double prixAdulte, double prixEnfant) {
         super(codeActivite, titre, joursOuverture);
@@ -29,6 +29,12 @@ public class ActiviteVenteLibre extends Activite {
         // Vérifie si le jour demandé est dans les jours d'ouverture de l'activité
         if(!joursOuverture.contains(jour)){
             System.out.println("Cette activité n'est pas disponible pour le jour demandé. L'activité est ouverte les jours suivant : " + joursOuverture);
+            return -1;
+        }
+
+        // Le paramètre nbPersonne ne doit contenir que 2 nombre de personnes, celui pour les adultes et celui pour les enfants
+        if(nbPersonne.length != 2){
+            System.out.println("Mauvais nombre de personnes");
             return -1;
         }
 

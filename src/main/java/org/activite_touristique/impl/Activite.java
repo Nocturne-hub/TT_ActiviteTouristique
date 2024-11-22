@@ -21,4 +21,12 @@ public abstract class Activite implements IActivite {
         this.titre = titre;
         this.joursOuverture = joursOuverture;
     }
+
+    public String getCodeActivite() {
+        return codeActivite;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
 }
